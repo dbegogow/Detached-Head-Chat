@@ -1,11 +1,12 @@
 version: '3.8'
 services:
   frontend:
-    build:
-      context: ./frontend
-    working_dir: /app
-    volumes:
-      - ./frontend:/app
+    build: ./frontend
     ports:
       - "5173:5173"
-    command: npm run dev 
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      - VITE_HOST=0.0.0.0
+    command: npm run dev -- --host 0.0.0.0 
