@@ -1,0 +1,72 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# frontend
+
+## Project Overview
+
+This is a Vite-based React TypeScript project using Material-UI (MUI) for UI components and theming. The project is containerized using Docker and managed with Docker Compose for easy development and deployment.
+
+---
+
+## Key NPM Packages
+
+- **react** & **react-dom**: Core React libraries for building the UI.
+- **@mui/material**: Material-UI core components.
+- **@mui/icons-material**: Material Design icons for MUI.
+- **@mui/lab**: Experimental and pre-release MUI components.
+- **@emotion/react** & **@emotion/styled**: Peer dependencies for MUI, used for styling.
+- **@fontsource/roboto**: Roboto font, the default for MUI.
+- **typescript**: TypeScript support.
+- **vite**: Fast build tool and dev server.
+- **eslint** and related plugins: Linting and code quality tools.
+
+---
+
+## Docker & Docker Compose Setup
+
+- **Dockerfile** (in `frontend/`):
+  - Uses `node:alpine` as the base image.
+  - Sets `/app` as the working directory.
+  - Installs dependencies and runs the dev server.
+
+- **docker-compose.yml** (in project root):
+  - Defines a `frontend` service.
+  - Builds from the `frontend` directory.
+  - Mounts the frontend code and node_modules for live development.
+  - Exposes port `5173` (default for Vite).
+  - Sets `VITE_HOST=0.0.0.0` for proper networking.
+  - Runs `npm run dev -- --host 0.0.0.0` to start the Vite dev server.
+
+### Common Docker Commands
+
+- **Rebuild and start in detached mode:**
+  ```sh
+  docker-compose up --build -d
+  ```
+
+- **Stop and remove containers:**
+  ```sh
+  docker-compose down
+  ```
+
+- **View logs:**
+  ```sh
+  docker-compose logs frontend
+  ```
+
+- **Check running containers:**
+  ```sh
+  docker-compose ps
+  ```
+
+---
+
+## Notes
+
+- When adding new npm packages, run `npm install <package>` in the `frontend` directory, then rebuild the container.
+- The project uses the Roboto font and MUI’s theme provider by default.
+- Old CSS files have been removed in favor of MUI’s styling system.
+
